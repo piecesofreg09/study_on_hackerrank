@@ -1,0 +1,147 @@
+#!/bin/python3
+
+import sys, copy
+
+def kingCheck(board, kPos):
+    x = kPos[0]
+    y = kPos[1]
+    #print(board)
+    # Left: Queen Rook
+    for i in range(y - 1, -1, -1):
+        t = board[x][i]
+        if t != '#':
+            if t == 'Q' or t == 'R':
+                return 1
+            break
+    # Down: Queen Rook
+    for i in range(x + 1, 8):
+        t = board[i][y]
+        if t != '#':
+            if t == 'Q' or t == 'R':
+                return 1
+            break
+    # Right: Queen Rook
+    for i in range(y + 1, 8):
+        t = board[x][i]
+        if t != '#':
+            if t == 'Q' or t == 'R':
+                return 1
+            break
+    # Up: Queen Rook
+    for i in range(x - 1, -1, -1):
+        t = board[i][y]
+        if t != '#':
+            if t == 'Q' or t == 'R':
+                return 1
+            break
+    
+    # Left Down: Queen Bishop
+    len1 = min([8 - x - 1, y])
+    for i in range(y - 1, (y - 1) - len1, -1):
+        t =board[x + y - i][i]
+        if t != '#':
+            if t == 'Q' or t == 'B':
+                return 1
+            break
+    # Right Down: Queen Bishop
+    len1 = min([8 - x - 1, 8 - y - 1])
+    for i in range(y + 1, (y + 1) + len1, 1):
+        t = board[x + i - y][i]
+        if t != '#':
+            if t == 'Q' or t == 'B':
+                return 1
+            break
+    # Left Up: Queen Bishop
+    len1 = min([x, y])
+    for i in range(y - 1, (y - 1) - len1, -1):
+        t =board[x + i - y][i]
+        if t != '#':
+            if t == 'Q' or t == 'B':
+                return 1
+            break
+    # Right Up: Queen Bishop
+    len1 = min([x, 8 - y - 1])
+    for i in range(y + 1, (y + 1) + len1, 1):
+        t = board[x + y - i][i]
+        if t != '#':
+            if t == 'Q' or t == 'B':
+                return 1
+            break
+    
+    # for Knight
+    tList = []
+    tList.append([x - 1, y - 2])
+    tList.append([x - 2, y - 1])
+    tList.append([x - 1, y + 2])
+    tList.append([x - 2, y + 1])
+    tList.append([x + 1, y - 2])
+    tList.append([x + 2, y - 1])
+    tList.append([x + 1, y + 2])
+    tList.append([x + 2, y + 1])
+    
+    for i in tList:
+        if i[0] >= 0 and i[0] < 8 and i[1] >= 0 and i[1] < 8:
+            t = board[i[0]][i[1]]
+            if t == 'N':
+                return 1
+
+    return 0
+
+def waysToGiveACheck(board):
+    # Complete this function
+    # print(board)
+    kPos = [0, 0]
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if board[i][j] == 'k':
+                kPos[0] = i
+                kPos[1] = j
+    pPos = 0
+    for i in range(len(board[1])):
+        if board[1][i] == 'P' and board[0][i] == '#':
+            pPos = i
+    res = 0
+    temp = list(board[1])
+    temp[pPos] = '#'
+    board[1] = ''.join(temp)
+    
+    oneboard = copy.deepcopy(board)
+    temp = list(oneboard[0])
+    temp[pPos] = 'Q'
+    oneboard[0] = ''.join(temp)
+    t = kingCheck(oneboard, kPos)
+    #print(t)
+    res += t
+    
+    temp = list(oneboard[0])
+    temp[pPos] = 'R'
+    oneboard[0] = ''.join(temp)
+    t = kingCheck(oneboard, kPos)
+    #print(t)
+    res += t
+    
+    temp = list(oneboard[0])
+    temp[pPos] = 'B'
+    oneboard[0] = ''.join(temp)
+    t = kingCheck(oneboard, kPos)
+    #print(t)
+    res += t
+    
+    temp = list(oneboard[0])
+    temp[pPos] = 'N'
+    oneboard[0] = ''.join(temp)
+    t = kingCheck(oneboard, kPos)
+    #print(t)
+    res += t
+    
+    return res 
+
+if __name__ == "__main__":
+    t = int(input().strip())
+    for a0 in range(t):
+        board = []
+        for board_i in range(8):
+            board_t = str(input().strip())
+            board.append(board_t)
+        result = waysToGiveACheck(board)
+        print(result)
