@@ -1,9 +1,9 @@
 
-*Question*
+**Question**
 
 Given an array of integers, any array element can be moved to the end in one move. Determine minimum numbers of moves required to sort the array in ascending order.
 
-*Example*
+**Example**
 
 Eg: [1,3,2]
 Output: 1
@@ -19,8 +19,8 @@ Explanation: 1) 3 to end
 
 from [leetcode link](https://leetcode.com/discuss/interview-question/789524/determine-minimum-numbers-of-moves-required-to-sort-the-array-in-ascending-order)
 
-*Answer*
-```.net
+**Answer**
+```cs
 int moveMin(int[] arr)
     {
         var minSeen = new int[arr.Length];
