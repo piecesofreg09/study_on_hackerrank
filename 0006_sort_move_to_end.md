@@ -16,12 +16,14 @@ Eg: [5,1,3,2]
 Output: 2
 
 Explanation: 1) 3 to end
+
 	     2) 5 to end
 Eg: [ 1,3,2,5]
 
 Output: 2
 
 Explanation: 1) 3 to end
+
 	     2) 5 to end
 
 from [leetcode link](https://leetcode.com/discuss/interview-question/789524/determine-minimum-numbers-of-moves-required-to-sort-the-array-in-ascending-order)
