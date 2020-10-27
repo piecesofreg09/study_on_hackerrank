@@ -28,32 +28,33 @@ from [leetcode link](https://leetcode.com/discuss/interview-question/789524/dete
 
 **Answer**
 ```cs
-int moveMin(int[] arr)
+ int moveMin(int[] arr)
 {
-	var minSeen = new int[arr.Length];
-	minSeen[arr.Length - 1] = arr[arr.Length - 1];
+    var minSeen = new int[arr.Length];
+    minSeen[arr.Length - 1] = arr[arr.Length - 1];
 
-	for (int i = arr.Length - 2; i >= 0; i--)
-	{
-	    minSeen[i] = Math.Min(minSeen[i+1], arr[i]);
-	}
-	var count = 0;
+    for (int i = arr.Length - 2; i >= 0; i--)
+    {
+        minSeen[i] = Math.Min(minSeen[i+1], arr[i]);
+    }
+    var count = 0;
 
-	var maxMoved = int.MaxValue;
-	for (int i = 0; i < arr.Length; i++)
-	{
-	    if (arr[i] > maxMoved ) // if moved Higher number before then need to move
-	    {
-		count++;
-	    }
-	    else if (arr[i]> minSeen[i]) // if there is lower number after then need to move
-	    {
-		count++;
-		maxMoved = arr[i];
-	    }
-	}
-	return count;
+    var maxMoved = int.MaxValue;
+    for (int i = 0; i < arr.Length; i++)
+    {
+        if (arr[i] > maxMoved ) // if moved Higher number before then need to move
+        {
+            count++;
+        }
+        else if (arr[i]> minSeen[i]) // if there is lower number after then need to move
+        {
+            count++;
+            maxMoved = arr[i];
+        }
+    }
+    return count;
 }
+
 var input = new int[] { 1, 3, 2 };
 Console.WriteLine(moveMin(input) == 1); // Move 3
 input = new int[] { 5, 1, 3, 2 };
